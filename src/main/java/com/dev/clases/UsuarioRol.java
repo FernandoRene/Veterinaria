@@ -32,11 +32,11 @@ public class UsuarioRol implements Serializable{
     public String getNombreCompleto() {
         return nombreCompleto;
     }
-
+    
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
-
+    
     
     public String getCodigo() {
         return codigo;
@@ -63,7 +63,5 @@ public class UsuarioRol implements Serializable{
     public void setVigenciaDias(int vigenciaDias) {
         this.vigenciaDias = vigenciaDias;
     }
-    
-    
-    
+        
 }

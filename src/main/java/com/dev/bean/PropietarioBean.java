@@ -364,5 +364,46 @@ public class PropietarioBean {
 
         return salidaOption.toString();
     }
+    
+    public String listadoPropietariosParaSelect() {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    StringBuilder html = new StringBuilder();
+    
+    try {
+        String sql = "SELECT id_propietario, nombre_prop, paterno_prop, materno_prop " +
+                     "FROM propietario " +
+                     "ORDER BY paterno_prop, nombre_prop";
+        
+        ps = connection.prepareStatement(sql);
+        rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            int id = rs.getInt("id_propietario");
+            String nombre = rs.getString("nombre_prop");
+            String paterno = rs.getString("paterno_prop");
+            String materno = rs.getString("materno_prop") != null ? rs.getString("materno_prop") : "";
+            
+            String nombreCompleto = (nombre + " " + paterno + " " + materno).trim();
+            
+            html.append("<option value=\"").append(id).append("\">")
+                .append(nombreCompleto)
+                .append("</option>");
+        }
+        
+    } catch (SQLException e) {
+        System.err.println("Error: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    return html.toString();
+}
 
 }
